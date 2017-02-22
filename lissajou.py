@@ -1,10 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Creation of Lissajou's figures from carrier and signal wave (kinda lissajou on steroids actually)
+
 def car_sig(car, sig, rng, phi):
     return [car.calculate(angle, phi) * sig.calculate(angle, phi) for angle in rng]
 
 class Wave:
+    '''
+    Creates and calculates the primary components of each sine wave which will be added during the process
+    '''
     def __init__(self, amplitude = 1, frequency = 1):
         self.amplitude = amplitude
         self.frequency = frequency
@@ -17,7 +22,10 @@ class Wave:
             return self.amplitude * np.sin(self.frequency
             * angle + phi)
             
-class LissCurve:        
+class LissCurve:
+    '''
+    Creates and plot the curves from the sine waves described earlier
+    '''
     def __init__(self, carx = Wave(), sigx = Wave(), cary = Wave(), sigy = Wave(), val = np.linspace(0,4000,2000)):
         self.carx = carx
         self.sigx = sigx
@@ -40,8 +48,11 @@ class LissCurve:
         plt.savefig(self.name)
         plt.close()
         
+# Initializing the Lissajou's generator
 plt.ioff()
 np.random.seed(1234)
+
+# Generating the curves with random values
 for i in range(200):
     res = 1
     params = np.random.randint(1,21, size = 4)
