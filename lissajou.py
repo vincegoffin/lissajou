@@ -26,7 +26,7 @@ class LissCurve:
     '''
     Creates and plot the curves from the sine waves described earlier
     '''
-    def __init__(self, carx = Wave(), sigx = Wave(), cary = Wave(), sigy = Wave(), val = np.linspace(0,4000,2000)):
+    def __init__(self, carx = Wave(), sigx = Wave(), cary = Wave(), sigy = Wave(), val = np.linspace(0,400,2000)):
         self.carx = carx
         self.sigx = sigx
         self.cary = cary
@@ -40,34 +40,37 @@ class LissCurve:
                             sfy=self.sigy.frequency))
         
     def plot_lissajou(self):
-        fig = plt.figure(facecolor='w', figsize = (5,5), dpi=300)
-        plt.plot(self.wavex,self.wavey, c='k')
+        fig = plt.figure(facecolor='w', figsize = (16,9), dpi=300)
+        plt.plot(self.wavex,self.wavey, c='k',lw=3)
         plt.xlim([-1.05,1.05])
         plt.ylim([-1.05,1.05])
         plt.gca().axis('off')
         plt.savefig(self.name)
         plt.close()
-        
-# Initializing the Lissajou's generator
-plt.ioff()
-np.random.seed(1234)
 
-# Generating the curves with random values
-for i in range(200):
-    res = 1
-    params = np.random.randint(1,21, size = 4)
-    
-    carx = Wave(frequency = params[0]*res)
-    sigx = Wave(frequency = params[1]*res)
-    
-    cary = Wave(frequency = params[2]*res)
-    sigy = Wave(frequency = params[3]*res)
-    
-    keys = ['carx', 'sigx', 'cary','sigy']
-    items = [carx, sigx, cary, sigy]
-    args = dict(zip(keys, items))
-    
-    l = LissCurve(**args)
-    l.plot_lissajou()
-    
-    print(l.name)
+
+if __name__ = '__main__':        
+	# Initializing the Lissajou's generator
+	plt.ioff()
+	np.random.seed(1234)
+
+	# Generating the curves with random values
+	for i in range(100):
+		res = 1
+		#params = [12,6,13,2]
+		params = np.random.randint(1,26, size = 4)
+
+		carx = Wave(frequency = params[0]*res)
+		sigx = Wave(frequency = params[1]*res)
+
+		cary = Wave(frequency = params[2]*res)
+		sigy = Wave(frequency = params[3]*res)
+
+		keys = ['carx', 'sigx', 'cary','sigy']
+		items = [carx, sigx, cary, sigy]
+		args = dict(zip(keys, items))
+
+		l = LissCurve(**args)
+		l.plot_lissajou()
+
+		print(l.name)
